@@ -222,13 +222,10 @@ cd /D php-src\ext
 set THREAD_EXT_FLAGS=""
 if "%PM_VERSION_MAJOR%" geq "5" (
     call :get-extension-zip-from-github "pmmpthread" "%PHP_PMMPTHREAD_VER%" "pmmp" "ext-pmmpthread" || exit 1
-    set THREAD_EXT_FLAGS="--with-pmmpthread=shared^"
+    set THREAD_EXT_FLAGS="--with-pmmpthread=shared^--with-pmmpthread-sockets"
 ) else (
     call :get-extension-zip-from-github "pthreads" "%PHP_PTHREADS_VER%" "pmmp" "ext-pmmpthread" || exit 1
-    set THREAD_EXT_FLAGS="
---with-pthreads=shared^
---with-pmmpthread-sockets^
-"
+	set THREAD_EXT_FLAGS="--with-pthreads=shared"
 )
 call :get-extension-zip-from-github "yaml"                  "%PHP_YAML_VER%"                  "php"      "pecl-file_formats-yaml"  || exit 1
 call :get-extension-zip-from-github "chunkutils2"           "%PHP_CHUNKUTILS2_VER%"           "pmmp"     "ext-chunkutils2"         || exit 1
@@ -307,7 +304,7 @@ call configure^
  --with-mysqlnd^
  --with-openssl^
  --with-pcre-jit^
- %THREAD_EXT_FLAGS%
+ %THREAD_EXT_FLAGS%^
  --with-simplexml^
  --with-sodium^
  --with-sqlite3=shared^
