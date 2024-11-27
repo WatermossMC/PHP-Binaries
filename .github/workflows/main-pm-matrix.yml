@@ -209,6 +209,7 @@ jobs:
 
       - name: Generate release notes
         run: |
+          echo "### PHP ${{ inputs.php-version-base }} for PocketMine-MP ${{ inputs.pm-version-major }}.x" >> changelog.md
           echo "Last updated on **$(date -u +'%d %b %Y at %H:%M:%S %Z')**" > changelog.md
           echo -e "\n\n" >> changelog.md
           echo "Built by: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> changelog.md
@@ -219,14 +220,12 @@ jobs:
           echo -e "\n\n\n" >> changelog.md
 
           if [[ "${{ inputs.special-release }}" != "none" ]]; then
-            cp changelog.md special-changelog.md
-            echo ":white_check_mark: This version is recommended for PocketMine-MP ${{ inputs.pm-version-major }}.x production servers." >> special-changelog.md
+            echo ":white_check_mark: At the time of publication, this version is recommended for PocketMine-MP ${{ inputs.pm-version-major }}.x production servers." >> changelog.md
+          else
+            echo ":warning: WARNING! :warning:" >> changelog.md
+            echo "At the time of publication, plugins for PocketMine-MP ${{ inputs.pm-version-major }}.x may not work this PHP version." >> changelog.md
+            echo "If you have problems, try the [recommended PM${{ inputs.pm-version-major }} release](${{ github.server_url }}/${{ github.repository }}/releases/pm${{ inputs.pm-version-major }}-latest) instead." >> changelog.md
           fi
-
-          echo -e "\n\n\n" >> changelog.md
-          echo ":warning: WARNING! :warning:" >> changelog.md
-          echo "Plugins for PocketMine-MP ${{ inputs.pm-version-major }}.x may not work on all of these PHP versions." >> changelog.md
-          echo "If you have problems, try the [recommended PM${{ inputs.pm-version-major }} release](${{ github.server_url }}/${{ github.repository }}/releases/pm${{ inputs.pm-version-major }}-latest) instead." >> changelog.md
 
       - name: Get date
         id: date
@@ -245,21 +244,23 @@ jobs:
           tag: pm${{ inputs.pm-version-major }}-latest
           commit: ${{ github.sha }}
           allowUpdates: true
-          bodyFile: ${{ github.workspace }}/special-changelog.md
+          removeArtifacts: true
+          bodyFile: ${{ github.workspace }}/changelog.md
           makeLatest: ${{ inputs.special-release == 'default-latest' }}
           prerelease: ${{ inputs.pm-preview == 'true' }}
 
-      - name: Update all PM release
+      - name: Update php-version PM release
         uses: ncipollo/release-action@v1.14.0
         with:
           artifacts: |
             ${{ github.workspace }}/PHP-*-Linux-PM*/*.tar.gz
             ${{ github.workspace }}/PHP-*-MacOS-*-PM*/*.tar.gz
             ${{ github.workspace }}/PHP-*-Windows-PM*/*.zip
-          name: PM ${{ inputs.pm-version-major }}.x (${{ steps.date.outputs.DATE }}) - All PHP Versions
-          tag: pm${{ inputs.pm-version-major }}-all-latest
+          name: PM ${{ inputs.pm-version-major }}.x (${{ steps.date.outputs.DATE }}) - PHP ${{ inputs.php-version-base }}
+          tag: pm${{ inputs.pm-version-major }}-php-${{ inputs.php-version-base }}-latest
           commit: ${{ github.sha }}
           allowUpdates: true
+          removeArtifacts: true
           bodyFile: ${{ github.workspace }}/changelog.md
           makeLatest: false
           prerelease: ${{ inputs.pm-preview == 'true' }}
