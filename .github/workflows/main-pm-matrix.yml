@@ -196,8 +196,8 @@ jobs:
 
       - name: Update latest tag target
         run: |
-          git tag -f pm${{ inputs.pm-version-major }}-all-latest
-          git push -f origin pm${{ inputs.pm-version-major }}-all-latest
+          git tag -f pm${{ inputs.pm-version-major }}-php-${{ inputs.php-version-base }}-latest
+          git push -f origin pm${{ inputs.pm-version-major }}-php-${{ inputs.php-version-base }}-latest
           git tag -f pm${{ inputs.pm-version-major }}-latest
           git push -f origin pm${{ inputs.pm-version-major }}-latest
 
