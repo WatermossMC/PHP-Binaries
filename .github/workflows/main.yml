@@ -3,7 +3,7 @@ name: Build and publish PHP binaries
 on:
   push:
     branches: "**"
-    tags-ignore: "php-**"
+    tags-ignore: "**"
   pull_request:
   workflow_dispatch:
 
