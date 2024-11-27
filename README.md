@@ -1,4 +1,4 @@
-# Custom PHP build scripts for PocketMine-MP
+# PHP binaries & PHP build scripts for PocketMine-MP
 [![Build status](https://github.com/pmmp/php-build-scripts/actions/workflows/main.yml/badge.svg)](https://github.com/pmmp/php-build-scripts/actions/workflows/main.yml)
 
 ## Prebuilt binaries
