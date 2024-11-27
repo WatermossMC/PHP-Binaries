@@ -209,8 +209,8 @@ jobs:
 
       - name: Generate release notes
         run: |
-          echo "### PHP ${{ inputs.php-version-base }} for PocketMine-MP ${{ inputs.pm-version-major }}.x" >> changelog.md
-          echo "Last updated on **$(date -u +'%d %b %Y at %H:%M:%S %Z')**" > changelog.md
+          echo "### PHP ${{ inputs.php-version-base }} for PocketMine-MP ${{ inputs.pm-version-major }}.x" > changelog.md
+          echo "Last updated on **$(date -u +'%d %b %Y at %H:%M:%S %Z')**" >> changelog.md
           echo -e "\n\n" >> changelog.md
           echo "Built by: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> changelog.md
           echo "Build number: ${{ github.run_number }}" >> changelog.md
