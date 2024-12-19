@@ -331,7 +331,9 @@ function download_file {
 			echo "Cache hit for URL: $url" >> "$DIR/install.log"
 		else
 			echo "Downloading file to cache: $url" >> "$DIR/install.log"
-			_download_file "$1" > "$DOWNLOAD_CACHE/$cached_filename" 2>> "$DIR/install.log"
+			#download to a tmpfile first, so that we don't leave borked cache entries for later runs
+			_download_file "$1" > "$DOWNLOAD_CACHE/.temp" 2>> "$DIR/install.log"
+			mv "$DOWNLOAD_CACHE/.temp" "$DOWNLOAD_CACHE/$cached_filename" >> "$DIR/install.log" 2>&1
 		fi
 		cat "$DOWNLOAD_CACHE/$cached_filename" 2>> "$DIR/install.log"
 	else

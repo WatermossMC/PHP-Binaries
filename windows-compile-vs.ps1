@@ -227,7 +227,9 @@ function download-file {
         echo "Cache hit for URL: $url" >> $log_file
     } else {
         echo "Downloading file from $url to $cached_path" >> $log_file
-        Invoke-WebRequest -Uri $url -OutFile $cached_path >> $log_file 2>&1
+        #download to a tmpfile first, so that we don't leave borked cache entries for later runs
+        Invoke-WebRequest -Uri $url -OutFile "$download_cache/.temp" >> $log_file 2>&1
+        Move-Item "$download_cache/.temp" $cached_path >> $log_file 2>&1
     }
     if (!(Test-Path $cached_path)) {
         pm-fatal-error "Failed to download file from $url"
