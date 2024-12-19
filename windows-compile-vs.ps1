@@ -1,4 +1,5 @@
 ﻿$ErrorActionPreference="Stop"
+$ProgressPreference="SilentlyContinue"
 
 $PHP_VERSIONS=@("8.2.25", "8.3.13")
 
@@ -238,6 +239,18 @@ function download-file {
     return $cached_path
 }
 
+function unzip-file {
+    param ([string] $file, [string] $destination)
+
+    #expand-archive doesn't respect script-local ProgressPreference
+    #https://github.com/PowerShell/Microsoft.PowerShell.Archive/issues/77
+    $oldProgressPref = $global:ProgressPreference
+    $global:ProgressPreference = "SilentlyContinue"
+    Expand-Archive -Path $file -DestinationPath $destination >> $log_file 2>&1
+    $global:ProgressPreference = $oldProgressPref
+}
+
+
 function append-file-utf8 {
     param ([string] $line, [string] $file)
 
@@ -250,7 +263,7 @@ function download-sdk {
     write-download
     $file = download-file "https://github.com/php/php-sdk-binary-tools/archive/refs/tags/php-sdk-$PHP_SDK_VER.zip" "php-sdk"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item "php-sdk-binary-tools-php-sdk-$PHP_SDK_VER" $SOURCES_PATH
     write-done
 }
@@ -286,7 +299,7 @@ function build-yaml {
     write-download
     $file = download-file "https://github.com/yaml/libyaml/archive/$LIBYAML_VER.zip" "yaml"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item "libyaml-$LIBYAML_VER" libyaml >> $log_file 2>&1
     Push-Location libyaml
 
@@ -310,7 +323,7 @@ function build-pthreads4w {
     write-download
     $file = download-file "https://github.com/pmmp/DependencyMirror/releases/download/mirror/pthreads4w-code-v$PTHREAD_W32_VER.zip" "pthreads4w"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item "pthreads4w-code-*" pthreads4w >> $log_file 2>&1
     Push-Location pthreads4w
 
@@ -334,7 +347,7 @@ function build-leveldb {
     write-download
     $file = download-file "https://github.com/pmmp/leveldb/archive/$LEVELDB_MCPE_VER.zip"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item leveldb-* leveldb >> $log_file 2>&1
     Push-Location leveldb
 
@@ -362,7 +375,7 @@ function build-libdeflate {
     write-download
     $file = download-file "https://github.com/ebiggers/libdeflate/archive/$LIBDEFLATE_VER.zip"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item libdeflate-* libdeflate >> $log_file 2>&1
     Push-Location libdeflate
 
@@ -390,7 +403,7 @@ function download-php {
 
     $file = download-file "https://github.com/php/php-src/archive/$PHP_GIT_REV.zip" "php"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     Move-Item "php-src-$PHP_GIT_REV" php-src >> $log_file 2>&1
     write-done
 }
@@ -402,7 +415,7 @@ function get-extension-zip {
     write-download
     $file = download-file $url "php-ext-$name"
     write-extracting
-    Expand-Archive -Path $file -DestinationPath $pwd >> $log_file 2>&1
+    unzip-file $file $pwd
     write-done
 }
 
