@@ -345,7 +345,7 @@ function build-pthreads4w {
 function build-leveldb {
     write-library "leveldb" $LEVELDB_MCPE_VER
     write-download
-    $file = download-file "https://github.com/pmmp/leveldb/archive/$LEVELDB_MCPE_VER.zip"
+    $file = download-file "https://github.com/pmmp/leveldb/archive/$LEVELDB_MCPE_VER.zip" "leveldb"
     write-extracting
     unzip-file $file $pwd
     Move-Item leveldb-* leveldb >> $log_file 2>&1
@@ -373,7 +373,7 @@ function build-leveldb {
 function build-libdeflate {
     write-library "libdeflate" $LIBDEFLATE_VER
     write-download
-    $file = download-file "https://github.com/ebiggers/libdeflate/archive/$LIBDEFLATE_VER.zip"
+    $file = download-file "https://github.com/ebiggers/libdeflate/archive/$LIBDEFLATE_VER.zip" "libdeflate"
     write-extracting
     unzip-file $file $pwd
     Move-Item libdeflate-* libdeflate >> $log_file 2>&1
