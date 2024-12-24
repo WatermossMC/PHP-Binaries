@@ -53,6 +53,7 @@ jobs:
           restore-keys: musl-cross-make-
 
       - name: Checkout musl-cross-make
+        if: steps.compiler-cache.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
         with:
           repository: pmmp/musl-cross-make
@@ -60,6 +61,7 @@ jobs:
           ref: ${{ env.MUSL_CROSS_MAKE_VERSION }}
 
       - name: Build compiler
+        if: steps.compiler-cache.outputs.cache-hit != 'true'
         working-directory: musl-cross-make
         run: |
           echo "TARGET = aarch64-linux-musl" > config.mak
