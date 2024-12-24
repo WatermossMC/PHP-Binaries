@@ -129,6 +129,7 @@ fi
 	export CXX="g++"
 	#export AR="gcc-ar"
 	export RANLIB=ranlib
+	export STRIP="strip"
 #fi
 
 COMPILE_FOR_ANDROID=no
@@ -459,6 +460,7 @@ if [ "$TOOLCHAIN_PREFIX" != "" ]; then
 		export RANLIB="$TOOLCHAIN_PREFIX-ranlib"
 		export CPP="$TOOLCHAIN_PREFIX-cpp"
 		export LD="$TOOLCHAIN_PREFIX-ld"
+		export STRIP="$TOOLCHAIN_PREFIX-strip"
 fi
 
 echo "#include <stdio.h>" > test.c
@@ -1376,7 +1378,7 @@ function separate_symbols {
 	output_dirname="$SYMBOLS_DIR/$(dirname $libname)"
 	mkdir -p "$output_dirname" >> "$DIR/install.log" 2>&1
 	cp "$libname" "$SYMBOLS_DIR/$libname.debug" >> "$DIR/install.log" 2>&1
-	strip -S "$libname" >> "$DIR/install.log" 2>&1 || rm "$SYMBOLS_DIR/$libname.debug" #if this fails, this probably isn't an executable binary
+	"$STRIP" -S "$libname" >> "$DIR/install.log" 2>&1 || rm "$SYMBOLS_DIR/$libname.debug" #if this fails, this probably isn't an executable binary
 }
 
 if [ "$SEPARATE_SYMBOLS" != "no" ]; then
