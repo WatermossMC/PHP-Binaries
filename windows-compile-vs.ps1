@@ -12,7 +12,7 @@ $ARCH="x64"
 $LIBYAML_VER="0.2.5"
 $PTHREAD_W32_VER="3.0.0"
 $LEVELDB_MCPE_VER="1c7564468b41610da4f498430e795ca4de0931ff" #release not tagged
-$LIBDEFLATE_VER="2335c047e91cac6fd04cb0fd2769380395149f15" #1.22 - see above note about "v" prefixes
+$LIBDEFLATE_VER="78051988f96dc8d8916310d8b24021f01bd9e102" #1.23 - see above note about "v" prefixes
 
 $PHP_PMMPTHREAD_VER="6.1.0"
 $PHP_YAML_VER="2.2.4"
