@@ -1,4 +1,4 @@
-???$ErrorActionPreference="Stop"
+$ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
 
 $PHP_VERSIONS=@("8.2.25", "8.3.13")
