@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference="Stop"
+???$ErrorActionPreference="Stop"
 $ProgressPreference="SilentlyContinue"
 
 $PHP_VERSIONS=@("8.2.25", "8.3.13")
@@ -16,7 +16,7 @@ $LIBDEFLATE_VER="78051988f96dc8d8916310d8b24021f01bd9e102" #1.23 - see above not
 
 $PHP_PMMPTHREAD_VER="6.1.0"
 $PHP_YAML_VER="2.2.4"
-$PHP_CHUNKUTILS2_VER="0.3.5"
+$PHP_ARRAYCRAFT_VER="0.3.5"
 $PHP_IGBINARY_VER="3.2.16"
 $PHP_LEVELDB_VER="317fdcd8415e1566fc2835ce2bdb8e19b890f9f3" #release not tagged
 $PHP_CRYPTO_VER="abbe7cbf869f96e69f2ce897271a61d32f43c7c0" #release not tagged
@@ -427,17 +427,17 @@ function get-github-extension {
 function download-php-extensions {
     Push-Location "$SOURCES_PATH\php-src\ext" >> $log_file 2>&1
     get-github-extension "pmmpthread" $PHP_PMMPTHREAD_VER "pmmp" "ext-pmmpthread"
-    get-github-extension "yaml"                  $PHP_YAML_VER                  "php"      "pecl-file_formats-yaml"
-    get-github-extension "chunkutils2"           $PHP_CHUNKUTILS2_VER           "pmmp"     "ext-chunkutils2"
-    get-github-extension "igbinary"              $PHP_IGBINARY_VER              "igbinary" "igbinary"
-    get-github-extension "leveldb"               $PHP_LEVELDB_VER               "pmmp"     "php-leveldb"
-    get-github-extension "recursionguard"        $PHP_RECURSIONGUARD_VER        "pmmp"     "ext-recursionguard"
-    get-github-extension "morton"                $PHP_MORTON_VER                "pmmp"     "ext-morton"
-    get-github-extension "libdeflate"            $PHP_LIBDEFLATE_VER            "pmmp"     "ext-libdeflate"
-    get-github-extension "xxhash"                $PHP_XXHASH_VER                "pmmp"     "ext-xxhash"
-    get-github-extension "xdebug"                $PHP_XDEBUG_VER                "xdebug"   "xdebug"
-    get-github-extension "arraydebug"            $PHP_ARRAYDEBUG_VER            "pmmp"     "ext-arraydebug"
-    get-github-extension "encoding"              $PHP_ENCODING_VER              "pmmp"     "ext-encoding"
+    get-github-extension "yaml"                  $PHP_YAML_VER                  "php"             "pecl-file_formats-yaml"
+    get-github-extension "arraycraft"            $PHP_ARRAYCRAFT_VER            "watermossmc"     "ext-arraycraft"
+    get-github-extension "igbinary"              $PHP_IGBINARY_VER              "igbinary"        "igbinary"
+    get-github-extension "leveldb"               $PHP_LEVELDB_VER               "pmmp"            "php-leveldb"
+    get-github-extension "recursionguard"        $PHP_RECURSIONGUARD_VER        "pmmp"            "ext-recursionguard"
+    get-github-extension "morton"                $PHP_MORTON_VER                "pmmp"            "ext-morton"
+    get-github-extension "libdeflate"            $PHP_LIBDEFLATE_VER            "pmmp"            "ext-libdeflate"
+    get-github-extension "xxhash"                $PHP_XXHASH_VER                "pmmp"            "ext-xxhash"
+    get-github-extension "xdebug"                $PHP_XDEBUG_VER                "xdebug"          "xdebug"
+    get-github-extension "arraydebug"            $PHP_ARRAYDEBUG_VER            "pmmp"            "ext-arraydebug"
+    get-github-extension "encoding"              $PHP_ENCODING_VER              "pmmp"            "ext-encoding"
 
     write-library "php-ext crypto" $PHP_CRYPTO_VER
     write-download
@@ -498,7 +498,7 @@ sdk-command "configure^`
     --enable-arraydebug=shared^`
     --enable-bcmath^`
     --enable-calendar^`
-    --enable-chunkutils2=shared^`
+    --enable-arraycraft=shared^`
     --enable-com-dotnet^`
     --enable-ctype^`
     --enable-encoding=shared^`
@@ -585,7 +585,7 @@ append-file-utf8 "zend.assertions=-1" $php_ini
 append-file-utf8 "extension_dir=ext" $php_ini
 append-file-utf8 "extension=php_pmmpthread.dll" $php_ini
 append-file-utf8 "extension=php_openssl.dll" $php_ini
-append-file-utf8 "extension=php_chunkutils2.dll" $php_ini
+append-file-utf8 "extension=php_arraycraft.dll" $php_ini
 append-file-utf8 "extension=php_igbinary.dll" $php_ini
 append-file-utf8 "extension=php_leveldb.dll" $php_ini
 append-file-utf8 "extension=php_crypto.dll" $php_ini

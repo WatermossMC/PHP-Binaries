@@ -25,7 +25,7 @@ Bash script used to compile PHP on MacOS and Linux platforms. Make sure you have
 
 ### Common pitfalls
 - Avoid using the script in directory trees containing spaces. Some libraries don't like trying to be built in directory trees containing spaces, e.g. `/home/user/my folder/pocketmine-mp/` might experience problems.
-- Avoid directory trees containing special (non-English) symbols. For example, `Développement` might cause issues.
+- Avoid directory trees containing special (non-English) symbols. For example, `D??veloppement` might cause issues.
 
 ### Additional notes
 #### Mac OSX (native compile)
@@ -103,7 +103,7 @@ This script doesn't accept parameters, but the following environment variables a
 | pmmpthread | https://github.com/pmmp/ext-pmmpthread/releases | PHP threading | |
 | yaml | https://github.com/php/pecl-file_formats-yaml/tags | YAML config parsing | Yes, the mix of - and _ is intentional. Don't ask me. |
 | leveldb | https://github.com/pmmp/php-leveldb/commits/pmmp-mojang-compatible/ | Bedrock world support | Custom version to provide `LEVELDB_ZLIB_RAW_COMPRESSION` support |
-| chunkutils2 | https://github.com/pmmp/ext-chunkutils2/releases | `PalettedBlockArray` and other low-level stuff | |
+| arraycraft | https://github.com/pmmp/ext-arraycraft/releases | `PalettedBlockArray` and other low-level stuff | |
 | xdebug | https://github.com/xdebug/xdebug/releases | Debugging | Not needed for production |
 | igbinary | https://github.com/igbinary/igbinary/releases | Faster serialization, mostly for moving stuff between threads | Non-essential, could be ditched if necessary |
 | crypto | https://github.com/bukka/php-crypto/tags | Bedrock packet encryption | |

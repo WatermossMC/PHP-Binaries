@@ -21,7 +21,7 @@ LIBDEFLATE_VERSION="78051988f96dc8d8916310d8b24021f01bd9e102" #1.23 - see above 
 EXT_PMMPTHREAD_VERSION="6.1.0"
 EXT_YAML_VERSION="2.2.4"
 EXT_LEVELDB_VERSION="317fdcd8415e1566fc2835ce2bdb8e19b890f9f3" #release not tagged
-EXT_CHUNKUTILS2_VERSION="0.3.5"
+EXT_ARRAYCRAFT_VERSION="0.3.5"
 EXT_XDEBUG_VERSION="3.3.2"
 EXT_IGBINARY_VERSION="3.2.16"
 EXT_CRYPTO_VERSION="abbe7cbf869f96e69f2ce897271a61d32f43c7c0" #release not tagged
@@ -1111,7 +1111,7 @@ write_done
 
 get_github_extension "leveldb" "$EXT_LEVELDB_VERSION" "pmmp" "php-leveldb"
 
-get_github_extension "chunkutils2" "$EXT_CHUNKUTILS2_VERSION" "pmmp" "ext-chunkutils2"
+get_github_extension "arraycraft" "$EXT_ARRAYCRAFT_VERSION" "pmmp" "ext-arraycraft"
 
 get_github_extension "libdeflate" "$EXT_LIBDEFLATE_VERSION" "pmmp" "ext-libdeflate"
 
@@ -1207,7 +1207,7 @@ $HAS_GD \
 --with-leveldb="$INSTALL_DIR" \
 --without-readline \
 $HAS_DEBUG \
---enable-chunkutils2 \
+--enable-arraycraft \
 --enable-morton \
 --enable-mbstring \
 --disable-mbregex \
