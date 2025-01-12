@@ -1111,7 +1111,7 @@ write_done
 
 get_github_extension "leveldb" "$EXT_LEVELDB_VERSION" "pmmp" "php-leveldb"
 
-get_github_extension "arraycraft" "$EXT_ARRAYCRAFT_VERSION" "pmmp" "ext-arraycraft"
+get_github_extension "arraycraft" "$EXT_ARRAYCRAFT_VERSION" "watermossmc" "ext-arraycraft"
 
 get_github_extension "libdeflate" "$EXT_LIBDEFLATE_VERSION" "pmmp" "ext-libdeflate"
 
